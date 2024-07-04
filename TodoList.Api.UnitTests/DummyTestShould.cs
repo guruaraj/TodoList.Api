@@ -43,8 +43,8 @@ namespace TodoList.Api.UnitTests
         {
             string id = "3fa85f64-5717-4562-b3fc-2c963f66afa2";
             var res = await controller.GetTodoItemAsync(Guid.Parse(id));
-            var statusCode = ((Microsoft.AspNetCore.Mvc.OkObjectResult)res).StatusCode;
-            var responseItem = (TodoItem)((Microsoft.AspNetCore.Mvc.ObjectResult)res).Value;
+            var statusCode = ((OkObjectResult)res).StatusCode;
+            var responseItem = (TodoItem)((ObjectResult)res).Value;
 
             // Assert
             Assert.Equal(Guid.Parse(id), responseItem.Id);
@@ -57,7 +57,7 @@ namespace TodoList.Api.UnitTests
         {
             string id = "3fa85f64-5717-4562-b3fc-2c963f66afa8";
             var res = await controller.GetTodoItemAsync(Guid.Parse(id));
-            var statusCode = ((Microsoft.AspNetCore.Mvc.NotFoundResult)res).StatusCode;
+            var statusCode = ((NotFoundResult)res).StatusCode;
 
             Assert.Equal(StatusCodes.Status404NotFound, statusCode);
             context.Database.EnsureDeleted();
@@ -67,7 +67,7 @@ namespace TodoList.Api.UnitTests
         public async void Get_OneItem_ById_EmptyGuid()
         {
             var res = await controller.GetTodoItemAsync(Guid.Empty);
-            var statusCode = ((Microsoft.AspNetCore.Mvc.NotFoundResult)res).StatusCode;
+            var statusCode = ((NotFoundResult)res).StatusCode;
 
             Assert.Equal(StatusCodes.Status404NotFound, statusCode);
             context.Database.EnsureDeleted();
